@@ -46,25 +46,24 @@
       text-shadow: 2px 2px 5px rgba(0,0,0,0.6);
     }
 
-  .subtitle {
-  text-align: center;
-  color: #ddd;
-  font-size: 1.05em;
-  margin-top: 10px;
-  line-height: 1.6;
-}
+    .subtitle {
+      text-align: center;
+      color: #ddd;
+      font-size: 1.05em;
+      margin-top: 10px;
+      line-height: 1.6;
+    }
 
-.subtitle .tax-code {
-  font-weight: 500;
-  color: #e0e0e0;
-}
+    .subtitle .tax-code {
+      font-weight: 500;
+      color: #e0e0e0;
+    }
 
-.subtitle .address {
-  color: #cccccc;
-  font-style: italic;
-  margin-top: 4px;
-}
-
+    .subtitle .address {
+      color: #cccccc;
+      font-style: italic;
+      margin-top: 4px;
+    }
 
     #datetime {
       text-align: center;
@@ -188,9 +187,9 @@
 
   <h1>DNTN KD Tiệm Vàng MINH SANG</h1>
   <div class="subtitle">
-  <div class="tax-code">MÃ SỐ THUẾ: <strong>370278679</strong></div>
-  <div class="address">Địa chỉ: 119A ĐƯỜNG D1, KHU PHỐ ĐÔNG AN, PHƯỜNG TÂN ĐÔNG HIỆP,<br>THÀNH PHỐ DĨ AN, TỈNH BÌNH DƯƠNG, VIỆT NAM</div>
-</div>
+    <div class="tax-code">MÃ SỐ THUẾ: <strong>370278679</strong></div>
+    <div class="address">Địa chỉ: 119A ĐƯỜNG D1, KHU PHỐ ĐÔNG AN, PHƯỜNG TÂN ĐÔNG HIỆP,<br>THÀNH PHỐ DĨ AN, TỈNH BÌNH DƯƠNG, VIỆT NAM</div>
+  </div>
   <div id="datetime">Đang tải ngày giờ...</div>
 
   <div class="main-content">
@@ -203,22 +202,8 @@
             <th>Giá Bán (VNĐ/CHỈ)</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>Nữ trang 610</td>
-            <td>6,300,000</td>
-            <td>6,800,000</td>
-          </tr>
-          <tr>
-            <td>Nữ trang 980</td>
-            <td>10,190,000</td>
-            <td>10,690,000</td>
-          </tr>
-          <tr>
-            <td>Nữ trang 999</td>
-            <td>10,360,000</td>
-            <td>10,860,000</td>
-          </tr>
+        <tbody id="gold-prices">
+          <!-- Dữ liệu bảng giá sẽ được chèn vào đây -->
         </tbody>
       </table>
     </div>
@@ -234,6 +219,7 @@
   </footer>
 
 <script>
+  // Hàm cập nhật ngày giờ
   function updateDateTime() {
     const now = new Date();
     const weekday = now.toLocaleDateString('vi-VN', { weekday: 'long' });
@@ -244,6 +230,7 @@
   updateDateTime();
   setInterval(updateDateTime, 1000);
 
+  // Hàm cập nhật biểu đồ Kitco
   function updateKitcoChart() {
     const img = document.getElementById('kitcoChart');
     const timestamp = new Date().getTime();
@@ -251,6 +238,37 @@
   }
   updateKitcoChart();
   setInterval(updateKitcoChart, 600000);
+
+  // Hàm tải và cập nhật bảng giá từ Google Sheets
+  function updateGoldPrices() {
+    const url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRoDmMh9geQzip7IJv4Qrj246sWbb--9Sza85EfzDBVaqYzEtwdAtypf8TYqa7ZXQje9r_ceKotiG3O/pub?output=csv";
+    fetch(url)
+      .then(response => response.text())
+      .then(data => {
+        const rows = data.split("\n").slice(1); // Bỏ qua dòng tiêu đề
+        const tableBody = document.getElementById("gold-prices");
+        tableBody.innerHTML = ""; // Xóa nội dung cũ
+        rows.forEach(row => {
+          const columns = row.split(",");
+          if (columns.length === 3) {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+              <td>${columns[0]}</td>
+              <td>${columns[1]}</td>
+              <td>${columns[2]}</td>
+            `;
+            tableBody.appendChild(tr);
+          }
+        });
+      })
+      .catch(error => {
+        console.error("Có lỗi xảy ra khi tải dữ liệu bảng giá:", error);
+      });
+  }
+
+  // Cập nhật bảng giá sau khi tải trang
+  updateGoldPrices();
+  setInterval(updateGoldPrices, 600000); // Cập nhật mỗi 10 phút
 </script>
 
 </body>
