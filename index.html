@@ -51,6 +51,7 @@
     table {
       font-size: 2em;
       width: 100%;
+      table-layout: fixed;
     }
     .table thead {
       background-color: #1565c0;
@@ -63,6 +64,19 @@
       border: 1px solid #555;
       box-shadow: 0 0 10px #000;
     }
+    .table th,
+.table td {
+  text-align: center;
+  vertical-align: middle;
+  padding: 15px;
+  word-wrap: break-word;
+}
+
+.table td:nth-child(2),
+.table td:nth-child(3) {
+  font-size: 2.5em;
+  font-weight: bold;
+}
     a {
       color: #90caf9;
     }
