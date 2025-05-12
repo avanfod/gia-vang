@@ -3,33 +3,69 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Giá Vàng Hôm Nay</title> 
+  <title>Giá Vàng Hôm Nay</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap" rel="stylesheet" />
   <style>
     body {
       background: linear-gradient(to bottom right, #0d1b2a, #1b263b);
       color: #ffffff;
-      font-family: "Segoe UI", sans-serif;
+      font-family: 'Segoe UI', sans-serif;
       margin: 0;
       padding: 0;
+      position: relative;
+      overflow-x: hidden;
     }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(120deg, rgba(255, 215, 0, 0.1), rgba(255, 255, 255, 0.05), rgba(255, 215, 0, 0.1));
+      background-size: 200% 200%;
+      animation: shimmer 10s infinite linear;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    @keyframes shimmer {
+      0% {
+        background-position: 0% 0%;
+      }
+      50% {
+        background-position: 100% 100%;
+      }
+      100% {
+        background-position: 0% 0%;
+      }
+    }
+
     h1 {
       text-align: center;
-      margin-top: 10px;
-      color: #fdd835;
+      margin-top: 20px;
+      color: #FFD700;
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8em;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.6);
     }
+
     .subtitle {
       text-align: center;
-      color: #ffffff;
-      font-size: 1.1em;
-      margin-top: 10px;
+      color: #ddd;
+      font-size: 1em;
+      margin-top: 8px;
     }
+
     #datetime {
       text-align: center;
-      font-size: 1.5em;
+      font-size: 1.3em;
       margin-top: 10px;
-      color: #bbdefb;
+      color: #90caf9;
     }
+
     .main-content {
       display: flex;
       flex-direction: row;
@@ -37,54 +73,82 @@
       align-items: stretch;
       padding: 20px;
       gap: 20px;
-      height: calc(100vh - 240px);
       box-sizing: border-box;
-      margin-top: 1px;
+      flex-wrap: wrap;
     }
+
     .table-container {
-      flex: 0 0 60%;
+      flex: 1 1 60%;
+      background-color: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
     }
+
     .chart-container {
-      flex: 0 0 40%;
+      flex: 1 1 35%;
       text-align: center;
+      background-color: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 15px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
     }
+
     table {
-      font-size: 2em;
+      font-size: 1.6em;
       width: 100%;
-      table-layout: fixed;
-    }
-    .table thead {
-      background-color: #1565c0;
+      border-collapse: collapse;
       color: #fff;
     }
+
+    .table thead {
+      background-color: #FFD700;
+      color: #000;
+    }
+
+    .table th,
+    .table td {
+      text-align: center;
+      vertical-align: middle;
+      padding: 15px;
+      border: 1px solid #555;
+    }
+
+    .table tbody tr:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      transition: 0.3s;
+    }
+
+    .table td:nth-child(2),
+    .table td:nth-child(3) {
+      font-weight: bold;
+      color: #fbc02d;
+    }
+
     img {
       width: 100%;
-      height: 132%;
+      max-height: 100%;
       margin-top: 10px;
-      border: 1px solid #555;
-      box-shadow: 0 0 10px #000;
+      border-radius: 10px;
+      border: 2px solid #FFD700;
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
     }
-    .table th,
-.table td {
-  text-align: center;
-  vertical-align: middle;
-  padding: 20px;
-  word-wrap: break-word;
-}
 
-.table td:nth-child(2),
-.table td:nth-child(3) {
-  font-size: 1.2em;
-  font-weight: bold;
-  }
     a {
       color: #90caf9;
+      text-decoration: none;
     }
+
+    a:hover {
+      text-decoration: underline;
+      color: #ffffff;
+    }
+
     footer {
-      margin-top: 0px;
+      margin-top: 20px;
       text-align: center;
-      color: #ccc;
-      font-size: 0.0em;
+      color: #bbb;
+      font-size: 0.9em;
     }
   </style>
 </head>
@@ -128,18 +192,25 @@
 
     <div class="chart-container">
       <img id="kitcoChart" alt="Biểu đồ giá vàng thế giới">
-      <p><a href="https://www.kitco.com" target="_blank"></a></p>
+      <p><a href="https://www.kitco.com" target="_blank">Xem chi tiết tại Kitco.com</a></p>
     </div>
   </div>
 
   <footer>
-    &copy;
+    &copy; 2025 Tiệm Vàng Minh Sang
   </footer>
 
   <script>
     function updateDateTime() {
       const now = new Date();
-      const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute:'2-digit', second:'2-digit' };
+      const options = {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+      };
       document.getElementById("datetime").textContent = now.toLocaleString('vi-VN', options);
     }
     updateDateTime();
