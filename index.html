@@ -32,15 +32,9 @@
     }
 
     @keyframes shimmer {
-      0% {
-        background-position: 0% 0%;
-      }
-      50% {
-        background-position: 100% 100%;
-      }
-      100% {
-        background-position: 0% 0%;
-      }
+      0% { background-position: 0% 0%; }
+      50% { background-position: 100% 100%; }
+      100% { background-position: 0% 0%; }
     }
 
     h1 {
@@ -150,9 +144,34 @@
       color: #bbb;
       font-size: 0.9em;
     }
+
+    /* LOGO CSS */
+    .logo-top-left {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      z-index: 1000;
+    }
+
+    .logo-top-left img {
+      height: 60px;
+      width: auto;
+      border-radius: 12px;
+      border: 2px solid #FFD700;
+      box-shadow: 0 0 12px rgba(255, 215, 0, 0.8);
+      background-color: white;
+      padding: 3px;
+    }
   </style>
 </head>
 <body>
+
+  <!-- Logo ở góc trái trên cùng -->
+  <div class="logo-top-left">
+    <a href="/">
+      <img src="https://i.imgur.com/bAZ9qcX.png" alt="Logo Tiệm Vàng Minh Sang">
+    </a>
+  </div>
 
   <h1>DNTN KD Tiệm Vàng MINH SANG</h1>
   <div class="subtitle">
@@ -219,7 +238,6 @@
   updateKitcoChart();
   setInterval(updateKitcoChart, 600000);
 </script>
-
 
 </body>
 </html>
