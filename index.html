@@ -92,7 +92,7 @@
     function updateKitcoChart() {
       const img = document.getElementById('kitcoChart');
       const timestamp = new Date().getTime();
-      img.src = `https://www.kitco.com/images/live/gold.gif?t=${timestamp}`;
+      img.src = `https://www.kitco.com/chart-images/images/live/gold.gif?t=${timestamp}`;
     }
     updateKitcoChart();
     setInterval(updateKitcoChart, 600000); // 10 phút
