@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Giá Vàng Hôm Nay</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8f9fa;
+      font-family: "Segoe UI", sans-serif;
+    }
+    .gold-table {
+      margin-top: 20px;
+    }
+    .kitco-chart {
+      margin-top: 40px;
+      text-align: center;
+    }
+    footer {
+      margin-top: 50px;
+      text-align: center;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1 class="text-center mt-4">Giá Vàng Trong Nước</h1>
+    
+    <div class="table-responsive gold-table">
+      <table class="table table-bordered table-hover">
+        <thead class="table-warning text-center">
+          <tr>
+            <th>Loại Vàng</th>
+            <th>Giá Mua (VNĐ)</th>
+            <th>Giá Bán (VNĐ)</th>
+          </tr>
+        </thead>
+        <tbody class="text-center">
+          <tr>
+            <td>Nữ trang 610</td>
+            <td id="sjc-buy">6,300,000</td>
+            <td id="sjc-sell">6,800,000</td>
+          </tr>
+          <tr>
+            <td>Nữ trang 980</td>
+            <td id="pnj-buy">10,190,000</td>
+            <td id="pnj-sell">10,690,000</td>
+          </tr>
+          <tr>
+            <td>Nữ trang 999</td>
+            <td id="doji-buy">10,360,000</td>
+            <td id="doji-sell">10,860,000</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="kitco-chart">
+      <h2>Biểu Đồ Giá Vàng Thế Giới (Kitco)</h2>
+      <img src="http://www.kitco.com/images/live/gold.gif" width="600" height="400" alt="Biểu đồ giá vàng thế giới">
+      <p><small>Nguồn: <a href="https://www.kitco.com/" target="_blank">Kitco.com</a></small></p>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Giá Vàng VN - Website cá nhân</p>
+  </footer>
+
+</body>
+</html>
