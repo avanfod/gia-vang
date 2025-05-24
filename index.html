@@ -79,23 +79,29 @@
       align-items: stretch;
       padding: 20px;
       gap: 20px;
+      box-sizing: border-box;
       flex-wrap: wrap;
     }
 
-    .table-container,
-    .chart-container {
-      flex: 1 1 45%;
-      background-color: rgba(255, 255, 255, 0.08);
+    .table-container {
+      flex: 1 1 60%;
+      background-color: rgba(255, 255, 255, 0.05);
       border-radius: 12px;
       padding: 20px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+    }
+
+    .chart-container {
+      flex: 1.5 1 35%;
+      text-align: center;
+      background-color: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 15px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
     }
 
     table {
-      font-size: 1.6em;
+      font-size: 1.8em;
       width: 100%;
       border-collapse: collapse;
       color: #fff;
@@ -121,14 +127,13 @@
 
     .table td:nth-child(2),
     .table td:nth-child(3) {
-      font-weight: 700;
-      font-size: 1.7em;
-      color: #FFD700;
+      font-weight: bold;
+      color: #fbc02d;
     }
 
     img {
       width: 100%;
-      max-height: 100%;
+      max-height: 300%;
       margin-top: 10px;
       border-radius: 10px;
       border: 2px solid #FFD700;
@@ -149,9 +154,10 @@
       margin-top: 5px;
       text-align: center;
       color: #bbb;
-      font-size: 0.9em;
+      font-size: 0.0em;
     }
 
+    /* LOGO CSS */
     .logo-top-left {
       position: fixed;
       top: 10px;
@@ -172,6 +178,7 @@
 </head>
 <body>
 
+  <!-- Logo ở góc trái trên cùng -->
   <div class="logo-top-left">
     <a href="/">
       <img src="https://i.imgur.com/bAZ9qcX.png" alt="Logo Tiệm Vàng Minh Sang">
@@ -203,7 +210,7 @@
 
     <div class="chart-container">
       <img id="kitcoChart" alt="Biểu đồ giá vàng thế giới">
-      <p style="text-align:right; font-size: 0.9em; margin-top: 5px;"><a href="https://www.kitco.com" target="_blank">Nguồn: Kitco.com</a></p>
+      <p><a href="https://www.kitco.com" target="_blank"></a></p>
     </div>
   </div>
 
@@ -212,6 +219,7 @@
   </footer>
 
 <script>
+  // Hàm cập nhật ngày giờ
   function updateDateTime() {
     const now = new Date();
     const weekday = now.toLocaleDateString('vi-VN', { weekday: 'long' });
@@ -222,22 +230,24 @@
   updateDateTime();
   setInterval(updateDateTime, 1000);
 
+  // Hàm cập nhật biểu đồ Kitco
   function updateKitcoChart() {
     const img = document.getElementById('kitcoChart');
     const timestamp = new Date().getTime();
-    img.src = `https://www.kitco.com/images/live/gold.gif?t=${timestamp}`;
+    img.src = `https://proxy.duckduckgo.com/iu/?u=https://www.kitco.com/chart-images/images/live/gold.gif&t=${timestamp}`;
   }
   updateKitcoChart();
   setInterval(updateKitcoChart, 300000);
 
+  // Hàm tải và cập nhật bảng giá từ Google Sheets
   function updateGoldPrices() {
     const url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRoDmMh9geQzip7IJv4Qrj246sWbb--9Sza85EfzDBVaqYzEtwdAtypf8TYqa7ZXQje9r_ceKotiG3O/pub?output=csv";
     fetch(url)
       .then(response => response.text())
       .then(data => {
-        const rows = data.split("\n").slice(1);
+        const rows = data.split("\n").slice(1); // Bỏ qua dòng tiêu đề
         const tableBody = document.getElementById("gold-prices");
-        tableBody.innerHTML = "";
+        tableBody.innerHTML = ""; // Xóa nội dung cũ
         rows.forEach(row => {
           const columns = row.split(",");
           if (columns.length === 3) {
@@ -255,8 +265,10 @@
         console.error("Có lỗi xảy ra khi tải dữ liệu bảng giá:", error);
       });
   }
+
+  // Cập nhật bảng giá sau khi tải trang
   updateGoldPrices();
-  setInterval(updateGoldPrices, 300000);
+  setInterval(updateGoldPrices, 300000); // Cập nhật mỗi 5 phút
 </script>
 
 </body>
