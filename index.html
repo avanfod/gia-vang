@@ -83,25 +83,25 @@
       flex-wrap: wrap;
     }
 
-    .table-container {
-      flex: 1 1 60%;
-      background-color: rgba(255, 255, 255, 0.05);
-      border-radius: 12px;
-      padding: 26px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-    }
-
-    .chart-container {
-      flex: 1 1 35%;
-      text-align: center;
+    .table-container, .chart-container {
+      flex: 1 1 100%;
       background-color: rgba(255, 255, 255, 0.05);
       border-radius: 12px;
       padding: 20px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.4);
     }
 
+    @media (min-width: 768px) {
+      .table-container {
+        flex: 1 1 60%;
+      }
+      .chart-container {
+        flex: 1 1 35%;
+      }
+    }
+
     table {
-      font-size: 1.8em;
+      font-size: 1.1em;
       width: 100%;
       border-collapse: collapse;
       color: #fff;
@@ -116,7 +116,7 @@
     .table td {
       text-align: center;
       vertical-align: middle;
-      padding: 15px;
+      padding: 10px;
       border: 1px solid #555;
     }
 
@@ -133,7 +133,7 @@
 
     img {
       width: 100%;
-      max-height: 130%;
+      max-height: 100%;
       margin-top: 10px;
       border-radius: 10px;
       border: 2px solid #FFD700;
@@ -151,7 +151,7 @@
     }
 
     footer {
-      margin-top: 5px;
+      margin-top: 20px;
       text-align: center;
       color: #bbb;
       font-size: 0.9em;
@@ -175,29 +175,17 @@
     }
 
     @media (max-width: 576px) {
-      h1 {
-        font-size: 1.8em;
-      }
-
-      .logo-top-left img {
-        height: 60px;
-      }
-
-      table {
-        font-size: 1.2em;
-      }
-
-      .subtitle {
-        font-size: 1.2em;
-      }
-
-      #datetime {
-        font-size: 1em;
-      }
+      h1 { font-size: 1.8em; }
+      .logo-top-left img { height: 60px; }
+      table { font-size: 0.95em; }
+      .subtitle { font-size: 1.2em; }
+      #datetime { font-size: 1em; }
     }
   </style>
 </head>
 <body>
+
+  <!-- Logo ở góc trái trên cùng -->
   <div class="logo-top-left">
     <a href="/">
       <img src="https://i.imgur.com/bAZ9qcX.png" alt="Logo Tiệm Vàng Minh Sang">
@@ -207,9 +195,12 @@
   <h1>DNTN KD Tiệm Vàng MINH SANG</h1>
   <div class="subtitle">
     <div class="tax-code">MÃ SỐ THUẾ: <strong>3702786679</strong></div>
-    <div class="address">ĐỊA CHỊ: 119A ĐƯờNG D1, KHU PHỐ ĐÔNG AN, PHƯỜNG TÂN ĐÔNG HIỆP,<br>THÀNH PHỐ DĨ AN, TỬaNH BÌNH DƯƠNG, VIỆT NAM</div>
+    <div class="address">
+      ĐỊA CHỈ: 119A ĐƯỜNG D1, KHU PHỐ ĐÔNG AN, PHƯỜNG TÂN ĐÔNG HIỆP,<br>
+      THÀNH PHỐ DĨ AN, TỈNH BÌNH DƯƠNG, VIỆT NAM
+    </div>
   </div>
-  <div id="datetime">...Đang tải ngày giờ...</div>
+  <div id="datetime">Đang tải ngày giờ...</div>
 
   <div class="main-content">
     <div class="table-container">
@@ -226,6 +217,7 @@
         </tbody>
       </table>
     </div>
+
     <div class="chart-container">
       <img id="kitcoChart" alt="Biểu đồ giá vàng thế giới">
       <p><a href="https://www.kitco.com" target="_blank">Xem chi tiết tại Kitco.com</a></p>
@@ -236,53 +228,54 @@
     &copy; 2025 Tiệm Vàng Minh Sang
   </footer>
 
-<script>
-  function updateDateTime() {
-    const now = new Date();
-    const weekday = now.toLocaleDateString('vi-VN', { weekday: 'long' });
-    const dateString = now.toLocaleDateString('vi-VN', { day: 'numeric', month: 'long', year: 'numeric' });
-    const timeString = now.toLocaleTimeString('vi-VN');
-    document.getElementById("datetime").textContent = `${timeString} - ${weekday}, ${dateString}`;
-  }
-  updateDateTime();
-  setInterval(updateDateTime, 1000);
+  <script>
+    function updateDateTime() {
+      const now = new Date();
+      const weekday = now.toLocaleDateString('vi-VN', { weekday: 'long' });
+      const dateString = now.toLocaleDateString('vi-VN', { day: 'numeric', month: 'long', year: 'numeric' });
+      const timeString = now.toLocaleTimeString('vi-VN');
+      document.getElementById("datetime").textContent = `${timeString} - ${weekday}, ${dateString}`;
+    }
+    updateDateTime();
+    setInterval(updateDateTime, 1000);
 
-  function updateKitcoChart() {
-    const img = document.getElementById('kitcoChart');
-    const timestamp = new Date().getTime();
-    img.src = `https://proxy.duckduckgo.com/iu/?u=https://www.kitco.com/chart-images/images/live/gold.gif&t=${timestamp}`;
-  }
-  updateKitcoChart();
-  setInterval(updateKitcoChart, 300000);
+    function updateKitcoChart() {
+      const img = document.getElementById('kitcoChart');
+      const timestamp = new Date().getTime();
+      img.src = `https://www.kitco.com/charts/livegold.gif?t=${timestamp}`;
+    }
+    updateKitcoChart();
+    setInterval(updateKitcoChart, 300000); // mỗi 5 phút
 
-  function updateGoldPrices() {
-    const url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRoDmMh9geQzip7IJv4Qrj246sWbb--9Sza85EfzDBVaqYzEtwdAtypf8TYqa7ZXQje9r_ceKotiG3O/pub?output=csv";
-    fetch(url)
-      .then(response => response.text())
-      .then(data => {
-        const rows = data.split("\n").slice(1);
-        const tableBody = document.getElementById("gold-prices");
-        tableBody.innerHTML = "";
-        rows.forEach(row => {
-          const columns = row.split(",");
-          if (columns.length === 3) {
-            const tr = document.createElement("tr");
-            tr.innerHTML = `
-              <td>${columns[0]}</td>
-              <td>${columns[1]}</td>
-              <td>${columns[2]}</td>
-            `;
-            tableBody.appendChild(tr);
-          }
+    function updateGoldPrices() {
+      const url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRoDmMh9geQzip7IJv4Qrj246sWbb--9Sza85EfzDBVaqYzEtwdAtypf8TYqa7ZXQje9r_ceKotiG3O/pub?output=csv";
+      fetch(url)
+        .then(response => response.text())
+        .then(data => {
+          const rows = data.split("\n").slice(1); // Bỏ tiêu đề
+          const tableBody = document.getElementById("gold-prices");
+          tableBody.innerHTML = "";
+          rows.forEach(row => {
+            const columns = row.split(",");
+            if (columns.length === 3) {
+              const tr = document.createElement("tr");
+              tr.innerHTML = `
+                <td>${columns[0]}</td>
+                <td>${columns[1]}</td>
+                <td>${columns[2]}</td>
+              `;
+              tableBody.appendChild(tr);
+            }
+          });
+        })
+        .catch(error => {
+          console.error("Lỗi tải dữ liệu bảng giá:", error);
         });
-      })
-      .catch(error => {
-        console.error("Có lỗi xảy ra khi tải dữ liệu bảng giá:", error);
-      });
-  }
-  updateGoldPrices();
-  setInterval(updateGoldPrices, 300000);
-</script>
+    }
+
+    updateGoldPrices();
+    setInterval(updateGoldPrices, 300000); // mỗi 5 phút
+  </script>
 
 </body>
 </html>
