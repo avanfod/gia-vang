@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Giá Vàng Hôm Nay</title>
+  <title>Giá Vàng Hôm Nay | Tiệm Vàng Minh Sang</title>
+  <link rel="icon" href="https://i.imgur.com/bAZ9qcX.png" type="image/png">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap" rel="stylesheet" />
   <style>
@@ -13,7 +14,7 @@
       font-family: 'Segoe UI', sans-serif;
       margin: 0;
       padding: 0;
-      position: relative;
+      transition: all 0.3s ease-in-out;
       overflow-x: hidden;
     }
 
@@ -79,29 +80,19 @@
       align-items: stretch;
       padding: 20px;
       gap: 20px;
-      box-sizing: border-box;
       flex-wrap: wrap;
     }
 
-    .table-container {
-      flex: 1 1 60%;
-      background-color: rgba(255, 255, 255, 0.05);
+    .table-container, .chart-container {
+      flex: 1 1 45%;
+      background-color: rgba(255, 255, 255, 0.08);
       border-radius: 12px;
       padding: 20px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.4);
     }
 
-    .chart-container {
-      flex: 1.5 1 35%;
-      text-align: center;
-      background-color: rgba(255, 255, 255, 0.05);
-      border-radius: 12px;
-      padding: 15px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-    }
-
     table {
-      font-size: 1.8em;
+      font-size: 1.3em;
       width: 100%;
       border-collapse: collapse;
       color: #fff;
@@ -112,11 +103,10 @@
       color: #000;
     }
 
-    .table th,
-    .table td {
+    .table th, .table td {
       text-align: center;
       vertical-align: middle;
-      padding: 15px;
+      padding: 12px;
       border: 1px solid #555;
     }
 
@@ -131,33 +121,25 @@
       color: #fbc02d;
     }
 
-    img {
+    img#kitcoChart {
       width: 100%;
-      max-height: 300%;
+      max-height: 100%;
       margin-top: 10px;
       border-radius: 10px;
       border: 2px solid #FFD700;
       box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
-    }
-
-    a {
-      color: #90caf9;
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-      color: #ffffff;
+      transition: opacity 0.5s ease-in-out;
     }
 
     footer {
-      margin-top: 5px;
+      margin-top: 30px;
       text-align: center;
-      color: #bbb;
-      font-size: 0.0em;
+      color: #ccc;
+      font-size: 0.9em;
+      padding: 10px 0;
+      border-top: 1px solid rgba(255,255,255,0.1);
     }
 
-    /* LOGO CSS */
     .logo-top-left {
       position: fixed;
       top: 10px;
@@ -178,7 +160,6 @@
 </head>
 <body>
 
-  <!-- Logo ở góc trái trên cùng -->
   <div class="logo-top-left">
     <a href="/">
       <img src="https://i.imgur.com/bAZ9qcX.png" alt="Logo Tiệm Vàng Minh Sang">
@@ -210,7 +191,7 @@
 
     <div class="chart-container">
       <img id="kitcoChart" alt="Biểu đồ giá vàng thế giới">
-      <p><a href="https://www.kitco.com" target="_blank"></a></p>
+      <p><a href="https://www.kitco.com" target="_blank" style="color:#90caf9;">Nguồn: Kitco.com</a></p>
     </div>
   </div>
 
@@ -219,7 +200,6 @@
   </footer>
 
 <script>
-  // Hàm cập nhật ngày giờ
   function updateDateTime() {
     const now = new Date();
     const weekday = now.toLocaleDateString('vi-VN', { weekday: 'long' });
@@ -230,24 +210,24 @@
   updateDateTime();
   setInterval(updateDateTime, 1000);
 
-  // Hàm cập nhật biểu đồ Kitco
   function updateKitcoChart() {
     const img = document.getElementById('kitcoChart');
     const timestamp = new Date().getTime();
+    img.style.opacity = 0;
+    img.onload = () => img.style.opacity = 1;
     img.src = `https://proxy.duckduckgo.com/iu/?u=https://www.kitco.com/chart-images/images/live/gold.gif&t=${timestamp}`;
   }
   updateKitcoChart();
   setInterval(updateKitcoChart, 300000);
 
-  // Hàm tải và cập nhật bảng giá từ Google Sheets
   function updateGoldPrices() {
     const url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRoDmMh9geQzip7IJv4Qrj246sWbb--9Sza85EfzDBVaqYzEtwdAtypf8TYqa7ZXQje9r_ceKotiG3O/pub?output=csv";
     fetch(url)
       .then(response => response.text())
       .then(data => {
-        const rows = data.split("\n").slice(1); // Bỏ qua dòng tiêu đề
+        const rows = data.split("\n").slice(1);
         const tableBody = document.getElementById("gold-prices");
-        tableBody.innerHTML = ""; // Xóa nội dung cũ
+        tableBody.innerHTML = "";
         rows.forEach(row => {
           const columns = row.split(",");
           if (columns.length === 3) {
@@ -265,10 +245,8 @@
         console.error("Có lỗi xảy ra khi tải dữ liệu bảng giá:", error);
       });
   }
-
-  // Cập nhật bảng giá sau khi tải trang
   updateGoldPrices();
-  setInterval(updateGoldPrices, 300000); // Cập nhật mỗi 5 phút
+  setInterval(updateGoldPrices, 300000);
 </script>
 
 </body>
