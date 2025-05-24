@@ -230,13 +230,14 @@
     updateDateTime();
     setInterval(updateDateTime, 1000);
 
-    function updateKitcoChart() {
-      const img = document.getElementById('kitcoChart');
-      const timestamp = new Date().getTime();
-      img.src = `https://www.kitco.com/images/live/gold.gif?t=${timestamp}`;
-    }
-    updateKitcoChart();
-    setInterval(updateKitcoChart, 300000);
+// Hàm cập nhật biểu đồ Kitco
+  function updateKitcoChart() {
+    const img = document.getElementById('kitcoChart');
+    const timestamp = new Date().getTime();
+    img.src = `https://proxy.duckduckgo.com/iu/?u=https://www.kitco.com/chart-images/images/live/gold.gif&t=${timestamp}`;
+  }
+  updateKitcoChart();
+  setInterval(updateKitcoChart, 300000);
 
     function updateGoldPrices() {
       const url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRoDmMh9geQzip7IJv4Qrj246sWbb--9Sza85EfzDBVaqYzEtwdAtypf8TYqa7ZXQje9r_ceKotiG3O/pub?output=csv";
