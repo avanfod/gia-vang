@@ -83,25 +83,25 @@
       flex-wrap: wrap;
     }
 
-    .table-container, .chart-container {
-      flex: 1 1 100%;
+    .table-container {
+      flex: 1 1 60%;
       background-color: rgba(255, 255, 255, 0.05);
       border-radius: 12px;
       padding: 20px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.4);
     }
 
-    @media (min-width: 768px) {
-      .table-container {
-        flex: 1 1 60%;
-      }
-      .chart-container {
-        flex: 1 1 35%;
-      }
+    .chart-container {
+      flex: 1 1 35%;
+      text-align: center;
+      background-color: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 15px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
     }
 
     table {
-      font-size: 1.1em;
+      font-size: 1.6em;
       width: 100%;
       border-collapse: collapse;
       color: #fff;
@@ -116,7 +116,7 @@
     .table td {
       text-align: center;
       vertical-align: middle;
-      padding: 10px;
+      padding: 15px;
       border: 1px solid #555;
     }
 
@@ -151,12 +151,13 @@
     }
 
     footer {
-      margin-top: 20px;
+      margin-top: 5px;
       text-align: center;
       color: #bbb;
       font-size: 0.9em;
     }
 
+    /* LOGO CSS */
     .logo-top-left {
       position: fixed;
       top: 10px;
@@ -173,14 +174,6 @@
       background-color: white;
       padding: 3px;
     }
-
-    @media (max-width: 576px) {
-      h1 { font-size: 1.8em; }
-      .logo-top-left img { height: 60px; }
-      table { font-size: 0.95em; }
-      .subtitle { font-size: 1.2em; }
-      #datetime { font-size: 1em; }
-    }
   </style>
 </head>
 <body>
@@ -195,10 +188,7 @@
   <h1>DNTN KD Tiệm Vàng MINH SANG</h1>
   <div class="subtitle">
     <div class="tax-code">MÃ SỐ THUẾ: <strong>3702786679</strong></div>
-    <div class="address">
-      ĐỊA CHỈ: 119A ĐƯỜNG D1, KHU PHỐ ĐÔNG AN, PHƯỜNG TÂN ĐÔNG HIỆP,<br>
-      THÀNH PHỐ DĨ AN, TỈNH BÌNH DƯƠNG, VIỆT NAM
-    </div>
+    <div class="address">ĐỊA CHỈ: 119A ĐƯỜNG D1, KHU PHỐ ĐÔNG AN, PHƯỜNG TÂN ĐÔNG HIỆP,<br>THÀNH PHỐ DĨ AN, TỈNH BÌNH DƯƠNG, VIỆT NAM</div>
   </div>
   <div id="datetime">Đang tải ngày giờ...</div>
 
@@ -228,54 +218,58 @@
     &copy; 2025 Tiệm Vàng Minh Sang
   </footer>
 
-  <script>
-    function updateDateTime() {
-      const now = new Date();
-      const weekday = now.toLocaleDateString('vi-VN', { weekday: 'long' });
-      const dateString = now.toLocaleDateString('vi-VN', { day: 'numeric', month: 'long', year: 'numeric' });
-      const timeString = now.toLocaleTimeString('vi-VN');
-      document.getElementById("datetime").textContent = `${timeString} - ${weekday}, ${dateString}`;
-    }
-    updateDateTime();
-    setInterval(updateDateTime, 1000);
+<script>
+  // Hàm cập nhật ngày giờ
+  function updateDateTime() {
+    const now = new Date();
+    const weekday = now.toLocaleDateString('vi-VN', { weekday: 'long' });
+    const dateString = now.toLocaleDateString('vi-VN', { day: 'numeric', month: 'long', year: 'numeric' });
+    const timeString = now.toLocaleTimeString('vi-VN');
+    document.getElementById("datetime").textContent = `${timeString} - ${weekday}, ${dateString}`;
+  }
+  updateDateTime();
+  setInterval(updateDateTime, 1000);
 
-    function updateKitcoChart() {
-      const img = document.getElementById('kitcoChart');
-      const timestamp = new Date().getTime();
-      img.src = `https://www.kitco.com/charts/livegold.gif?t=${timestamp}`;
-    }
-    updateKitcoChart();
-    setInterval(updateKitcoChart, 300000); // mỗi 5 phút
+  // Hàm cập nhật biểu đồ Kitco
+  function updateKitcoChart() {
+    const img = document.getElementById('kitcoChart');
+    const timestamp = new Date().getTime();
+    img.src = `https://proxy.duckduckgo.com/iu/?u=https://www.kitco.com/chart-images/images/live/gold.gif&t=${timestamp}`;
+  }
+  updateKitcoChart();
+  setInterval(updateKitcoChart, 300000);
 
-    function updateGoldPrices() {
-      const url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRoDmMh9geQzip7IJv4Qrj246sWbb--9Sza85EfzDBVaqYzEtwdAtypf8TYqa7ZXQje9r_ceKotiG3O/pub?output=csv";
-      fetch(url)
-        .then(response => response.text())
-        .then(data => {
-          const rows = data.split("\n").slice(1); // Bỏ tiêu đề
-          const tableBody = document.getElementById("gold-prices");
-          tableBody.innerHTML = "";
-          rows.forEach(row => {
-            const columns = row.split(",");
-            if (columns.length === 3) {
-              const tr = document.createElement("tr");
-              tr.innerHTML = `
-                <td>${columns[0]}</td>
-                <td>${columns[1]}</td>
-                <td>${columns[2]}</td>
-              `;
-              tableBody.appendChild(tr);
-            }
-          });
-        })
-        .catch(error => {
-          console.error("Lỗi tải dữ liệu bảng giá:", error);
+  // Hàm tải và cập nhật bảng giá từ Google Sheets
+  function updateGoldPrices() {
+    const url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRoDmMh9geQzip7IJv4Qrj246sWbb--9Sza85EfzDBVaqYzEtwdAtypf8TYqa7ZXQje9r_ceKotiG3O/pub?output=csv";
+    fetch(url)
+      .then(response => response.text())
+      .then(data => {
+        const rows = data.split("\n").slice(1); // Bỏ qua dòng tiêu đề
+        const tableBody = document.getElementById("gold-prices");
+        tableBody.innerHTML = ""; // Xóa nội dung cũ
+        rows.forEach(row => {
+          const columns = row.split(",");
+          if (columns.length === 3) {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+              <td>${columns[0]}</td>
+              <td>${columns[1]}</td>
+              <td>${columns[2]}</td>
+            `;
+            tableBody.appendChild(tr);
+          }
         });
-    }
+      })
+      .catch(error => {
+        console.error("Có lỗi xảy ra khi tải dữ liệu bảng giá:", error);
+      });
+  }
 
-    updateGoldPrices();
-    setInterval(updateGoldPrices, 300000); // mỗi 5 phút
-  </script>
+  // Cập nhật bảng giá sau khi tải trang
+  updateGoldPrices();
+  setInterval(updateGoldPrices, 300000); // Cập nhật mỗi 5 phút
+</script>
 
 </body>
 </html>
