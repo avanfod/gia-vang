@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Giá Vàng Hôm Nay | Tiệm Vàng Minh Sang</title>
-  <link rel="icon" href="https://i.imgur.com/bAZ9qcX.png" type="image/png">
+  <title>Giá Vàng Hôm Nay</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap" rel="stylesheet" />
   <style>
@@ -14,7 +13,7 @@
       font-family: 'Segoe UI', sans-serif;
       margin: 0;
       padding: 0;
-      transition: all 0.3s ease-in-out;
+      position: relative;
       overflow-x: hidden;
     }
 
@@ -83,16 +82,20 @@
       flex-wrap: wrap;
     }
 
-    .table-container, .chart-container {
+    .table-container,
+    .chart-container {
       flex: 1 1 45%;
       background-color: rgba(255, 255, 255, 0.08);
       border-radius: 12px;
       padding: 20px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
     table {
-      font-size: 1.3em;
+      font-size: 1.6em;
       width: 100%;
       border-collapse: collapse;
       color: #fff;
@@ -103,10 +106,11 @@
       color: #000;
     }
 
-    .table th, .table td {
+    .table th,
+    .table td {
       text-align: center;
       vertical-align: middle;
-      padding: 12px;
+      padding: 15px;
       border: 1px solid #555;
     }
 
@@ -117,27 +121,35 @@
 
     .table td:nth-child(2),
     .table td:nth-child(3) {
-      font-weight: bold;
-      color: #fbc02d;
+      font-weight: 700;
+      font-size: 1.7em;
+      color: #FFD700;
     }
 
-    img#kitcoChart {
+    img {
       width: 100%;
       max-height: 100%;
       margin-top: 10px;
       border-radius: 10px;
       border: 2px solid #FFD700;
       box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
-      transition: opacity 0.5s ease-in-out;
+    }
+
+    a {
+      color: #90caf9;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+      color: #ffffff;
     }
 
     footer {
-      margin-top: 30px;
+      margin-top: 5px;
       text-align: center;
-      color: #ccc;
+      color: #bbb;
       font-size: 0.9em;
-      padding: 10px 0;
-      border-top: 1px solid rgba(255,255,255,0.1);
     }
 
     .logo-top-left {
@@ -191,7 +203,7 @@
 
     <div class="chart-container">
       <img id="kitcoChart" alt="Biểu đồ giá vàng thế giới">
-      <p><a href="https://www.kitco.com" target="_blank" style="color:#90caf9;">Nguồn: Kitco.com</a></p>
+      <p style="text-align:right; font-size: 0.9em; margin-top: 5px;"><a href="https://www.kitco.com" target="_blank">Nguồn: Kitco.com</a></p>
     </div>
   </div>
 
@@ -213,9 +225,7 @@
   function updateKitcoChart() {
     const img = document.getElementById('kitcoChart');
     const timestamp = new Date().getTime();
-    img.style.opacity = 0;
-    img.onload = () => img.style.opacity = 1;
-    img.src = `https://proxy.duckduckgo.com/iu/?u=https://www.kitco.com/chart-images/images/live/gold.gif&t=${timestamp}`;
+    img.src = `https://www.kitco.com/images/live/gold.gif?t=${timestamp}`;
   }
   updateKitcoChart();
   setInterval(updateKitcoChart, 300000);
