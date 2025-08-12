@@ -224,8 +224,10 @@
       const values = [];
       let current = '';
       let insideQuotes = false;
+
       for (let i = 0; i < line.length; i++) {
         const char = line[i];
+
         if (char === '"' && line[i + 1] === '"') {
           current += '"';
           i++;
@@ -242,13 +244,6 @@
       return values;
     }
 
-    // Hàm format số tiền
-    function formatCurrency(value) {
-      let num = value.replace(/[^0-9.-]/g, ''); // bỏ ký tự không phải số
-      if (num === '') return value;
-      return parseFloat(num).toLocaleString('vi-VN');
-    }
-
     function updateGoldPrices() {
       const url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRoDmMh9geQzip7IJv4Qrj246sWbb--9Sza85EfzDBVaqYzEtwdAtypf8TYqa7ZXQje9r_ceKotiG3O/pub?output=csv";
       fetch(url)
@@ -263,8 +258,8 @@
               const tr = document.createElement("tr");
               tr.innerHTML = `
                 <td>${columns[0]}</td>
-                <td>${formatCurrency(columns[1])}</td>
-                <td>${formatCurrency(columns[2])}</td>
+                <td>${columns[1]}</td>
+                <td>${columns[2]}</td>
               `;
               tableBody.appendChild(tr);
             }
@@ -278,6 +273,7 @@
     updateGoldPrices();
     setInterval(updateGoldPrices, 300000);
 
+    // Reload trang sau 5 phút
     setTimeout(function() {
       location.reload();
     }, 300000);
