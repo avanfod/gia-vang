@@ -16,7 +16,6 @@
       position: relative;
       overflow-x: hidden;
     }
-
     body::before {
       content: "";
       position: fixed;
@@ -30,13 +29,11 @@
       pointer-events: none;
       z-index: -1;
     }
-
     @keyframes shimmer {
       0% { background-position: 0% 0%; }
       50% { background-position: 100% 100%; }
       100% { background-position: 0% 0%; }
     }
-
     h1 {
       text-align: center;
       margin-top: 20px;
@@ -45,7 +42,6 @@
       font-size: 2.8em;
       text-shadow: 2px 2px 5px rgba(0,0,0,0.6);
     }
-
     .subtitle {
       text-align: center;
       color: #ddd;
@@ -53,25 +49,21 @@
       margin-top: 10px;
       line-height: 1.6;
     }
-
     .subtitle .tax-code {
       font-weight: 500;
       color: #e0e0e0;
     }
-
     .subtitle .address {
       color: #cccccc;
       font-style: italic;
       margin-top: 4px;
     }
-
     #datetime {
       text-align: center;
       font-size: 1.8em;
       margin-top: 10px;
       color: #90caf9;
     }
-
     .main-content {
       display: flex;
       flex-direction: row;
@@ -82,7 +74,6 @@
       box-sizing: border-box;
       flex-wrap: wrap;
     }
-
     .table-container {
       flex: 1 1 60%;
       background-color: rgba(255, 255, 255, 0.05);
@@ -94,7 +85,6 @@
       justify-content: center;
       min-height: 550px;
     }
-
     .chart-container {
       flex: 1.5 1 35%;
       text-align: center;
@@ -107,19 +97,16 @@
       justify-content: center;
       min-height: 550px;
     }
-
     table {
       font-size: 1.5em;
       width: 100%;
       border-collapse: collapse;
       color: #fff;
     }
-
     .table thead {
       background-color: #FFD700;
       color: #000;
     }
-
     .table th,
     .table td {
       text-align: center;
@@ -128,19 +115,16 @@
       border: 1px solid #555;
       height: 100px;
     }
-
     .table td:nth-child(2),
     .table td:nth-child(3) {
       font-size: 2.8em;
       font-weight: bold;
       color: #fbc02d;
     }
-
     .table tbody tr:hover {
       background-color: rgba(255, 255, 255, 0.1);
       transition: 0.3s;
     }
-
     img {
       width: 100%;
       height: 200%;
@@ -150,31 +134,26 @@
       border: 2px solid #FFD700;
       box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
     }
-
     a {
       color: #90caf9;
       text-decoration: none;
     }
-
     a:hover {
       text-decoration: underline;
       color: #ffffff;
     }
-
     footer {
       margin-top: 5px;
       text-align: center;
       color: #bbb;
       font-size: 0.9em;
     }
-
     .logo-top-left {
       position: fixed;
       top: 10px;
       left: 20px;
       z-index: 1000;
     }
-
     .logo-top-left img {
       height: 150px;
       width: auto;
@@ -232,7 +211,6 @@
     updateDateTime();
     setInterval(updateDateTime, 1000);
 
-    // Cập nhật biểu đồ giá vàng
     function updateKitcoChart() {
       const img = document.getElementById('kitcoChart');
       const timestamp = new Date().getTime();
@@ -241,7 +219,36 @@
     updateKitcoChart();
     setInterval(updateKitcoChart, 300000);
 
-    // Cập nhật bảng giá vàng từ Google Sheets
+    // Hàm parser CSV an toàn
+    function parseCSVLine(line) {
+      const values = [];
+      let current = '';
+      let insideQuotes = false;
+      for (let i = 0; i < line.length; i++) {
+        const char = line[i];
+        if (char === '"' && line[i + 1] === '"') {
+          current += '"';
+          i++;
+        } else if (char === '"') {
+          insideQuotes = !insideQuotes;
+        } else if (char === ',' && !insideQuotes) {
+          values.push(current.trim());
+          current = '';
+        } else {
+          current += char;
+        }
+      }
+      values.push(current.trim());
+      return values;
+    }
+
+    // Hàm format số tiền
+    function formatCurrency(value) {
+      let num = value.replace(/[^0-9.-]/g, ''); // bỏ ký tự không phải số
+      if (num === '') return value;
+      return parseFloat(num).toLocaleString('vi-VN');
+    }
+
     function updateGoldPrices() {
       const url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRoDmMh9geQzip7IJv4Qrj246sWbb--9Sza85EfzDBVaqYzEtwdAtypf8TYqa7ZXQje9r_ceKotiG3O/pub?output=csv";
       fetch(url)
@@ -251,13 +258,13 @@
           const tableBody = document.getElementById("gold-prices");
           tableBody.innerHTML = "";
           rows.forEach(row => {
-            const columns = row.split(",");
-            if (columns.length === 3) {
+            const columns = parseCSVLine(row);
+            if (columns.length >= 3) {
               const tr = document.createElement("tr");
               tr.innerHTML = `
                 <td>${columns[0]}</td>
-                <td>${columns[1]}</td>
-                <td>${columns[2]}</td>
+                <td>${formatCurrency(columns[1])}</td>
+                <td>${formatCurrency(columns[2])}</td>
               `;
               tableBody.appendChild(tr);
             }
@@ -271,10 +278,9 @@
     updateGoldPrices();
     setInterval(updateGoldPrices, 300000);
 
-    // 🔁 TỰ ĐỘNG LÀM MỚI TOÀN TRANG SAU 5 PHÚT
     setTimeout(function() {
       location.reload();
-    }, 300000); // 300.000ms = 5 phút
+    }, 300000);
   </script>
 </body>
 </html>
