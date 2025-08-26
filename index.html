@@ -245,7 +245,7 @@
     }
 
     function updateGoldPrices() {
-      const url = "https://raw.githubusercontent.com/avanfod/gia-vang/refs/heads/main/Gia.csv";
+      const url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRoDmMh9geQzip7IJv4Qrj246sWbb--9Sza85EfzDBVaqYzEtwdAtypf8TYqa7ZXQje9r_ceKotiG3O/pub?output=csv";
       fetch(url)
         .then(response => response.text())
         .then(data => {
@@ -280,6 +280,7 @@
   </script>
 </body>
 </html>
+
 
 
 
