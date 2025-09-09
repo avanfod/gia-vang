@@ -164,6 +164,21 @@
       filter: none !important;
       padding: 0px;
     }
+
+    /* Dòng chữ cố định dưới cùng */
+    .fixed-footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      color: #FFD700;
+      text-align: center;
+      padding: 8px 0;
+      font-size: 1em;
+      z-index: 9999;
+      box-shadow: 0 -2px 8px rgba(0,0,0,0.3);
+    }
   </style>
 </head>
 <body>
@@ -199,6 +214,11 @@
   </div>
 
   <footer>&copy; 2025 Tiệm Vàng Minh Sang</footer>
+
+  <!-- Dòng thông báo cố định dưới cùng -->
+  <div class="fixed-footer">
+    Bảng giá chỉ áp dụng cho vàng của chúng tôi. Giá chưa bao gồm VAT
+  </div>
 
   <script>
     function updateDateTime() {
@@ -280,10 +300,3 @@
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
