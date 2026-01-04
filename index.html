@@ -9,10 +9,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap" rel="stylesheet" />
 
   <style>
-    /* ===== NỀN ĐỎ SANG TRỌNG ===== */
     body {
-      background: linear-gradient(135deg, #5a0f14, #7a1419, #3b070a);
-      color: #ffffff;
+      background: radial-gradient(
+        ellipse at top,
+        #7a0f1c 0%,
+        #4b0810 45%,
+        #1a0206 100%
+      );
+      color: #FFD700;
       font-family: 'Segoe UI', sans-serif;
       margin: 0;
       padding: 0;
@@ -26,12 +30,12 @@
       inset: 0;
       background: linear-gradient(
         120deg,
-        rgba(255, 215, 0, 0.12),
-        rgba(255, 255, 255, 0.04),
-        rgba(255, 215, 0, 0.12)
+        rgba(255,215,0,0.12),
+        rgba(255,255,255,0.03),
+        rgba(255,215,0,0.12)
       );
       background-size: 200% 200%;
-      animation: shimmer 12s infinite linear;
+      animation: shimmer 14s linear infinite;
       pointer-events: none;
       z-index: -1;
     }
@@ -42,31 +46,30 @@
       100% { background-position: 0% 0%; }
     }
 
-    /* ===== TIÊU ĐỀ ===== */
     h1 {
       text-align: center;
       margin-top: 20px;
       color: #FFD700;
       font-family: 'Playfair Display', serif;
       font-size: 2.8em;
-      text-shadow: 2px 3px 8px rgba(0,0,0,0.7);
+      text-shadow: 0 0 10px rgba(255,215,0,0.45);
     }
 
     .subtitle {
       text-align: center;
-      color: #f0e6e6;
+      color: #f5e6c8;
       font-size: 1.05em;
       margin-top: 10px;
       line-height: 1.6;
     }
 
     .subtitle .tax-code {
-      color: #ffe8a3;
+      color: #FFD700;
       font-weight: 500;
     }
 
     .subtitle .address {
-      color: #e0cfcf;
+      color: #e8d6b0;
       font-style: italic;
       margin-top: 4px;
     }
@@ -75,163 +78,21 @@
       text-align: center;
       font-size: 1.8em;
       margin-top: 10px;
-      color: #ffd966;
-    }
-
-    /* ===== BỐ CỤC ===== */
-    .main-content {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      padding: 20px;
-    }
-
-    .table-container,
-    .chart-container {
-      background: rgba(0, 0, 0, 0.35);
-      border-radius: 14px;
-      padding: 20px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.45);
-      backdrop-filter: blur(4px);
-      min-height: 550px;
-    }
-
-    .table-container {
-      flex: 1 1 60%;
-    }
-
-    .chart-container {
-      flex: 1.5 1 35%;
-      text-align: center;
-    }
-
-    /* ===== BẢNG GIÁ ===== */
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 1.5em;
-      color: #fff;
-    }
-
-    .table thead {
-      background: linear-gradient(90deg, #FFD700, #e6b800);
-      color: #3b070a;
-    }
-
-    .table th,
-    .table td {
-      text-align: center;
-      vertical-align: middle;
-      padding: 20px;
-      border: 1px solid rgba(255,255,255,0.25);
-      height: 100px;
-    }
-
-    .table td:nth-child(2),
-    .table td:nth-child(3) {
-      font-size: 2.8em;
-      font-weight: bold;
       color: #FFD700;
       text-shadow: 0 0 6px rgba(255,215,0,0.35);
     }
 
-    .table tbody tr:hover {
-      background-color: rgba(255, 255, 255, 0.08);
-      transition: 0.3s;
+    .main-content {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: stretch;
+      padding: 20px;
+      gap: 20px;
+      box-sizing: border-box;
+      flex-wrap: wrap;
     }
 
-    /* ===== BIỂU ĐỒ ===== */
-    img {
-      width: 100%;
-      height: 200%;
-      max-height: 200%;
-      margin-top: 10px;
-      border-radius: 12px;
-      border: 2px solid #FFD700;
-      box-shadow: 0 0 25px rgba(255, 215, 0, 0.55);
-    }
-
-    /* ===== LOGO ===== */
-    .logo-top-left {
-      position: fixed;
-      top: 10px;
-      left: 20px;
-      z-index: 1000;
-    }
-
-    .logo-top-left img {
-      height: 150px;
-      box-shadow: none;
-      border: none;
-      background: transparent;
-    }
-
-    /* ===== FOOTER ===== */
-    footer {
-      margin-top: 6px;
-      text-align: center;
-      color: #f1dede;
-      font-size: 0.9em;
-    }
-
-    .fixed-footer {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      background: linear-gradient(90deg, #3b070a, #6a0f14, #3b070a);
-      color: #FFD700;
-      text-align: center;
-      padding: 12px 0;
-      font-size: 2em;
-      z-index: 9999;
-      box-shadow: 0 -4px 12px rgba(0,0,0,0.5);
-    }
-  </style>
-</head>
-
-<body>
-  <div class="logo-top-left">
-    <a href="/"><img src="https://i.imgur.com/bAZ9qcX.png" alt="Logo Tiệm Vàng Minh Sang"></a>
-  </div>
-
-  <h1>DNTN KD Tiệm Vàng MINH SANG</h1>
-
-  <div class="subtitle">
-    <div class="tax-code">MÃ SỐ THUẾ: <strong>3702786679</strong></div>
-    <div class="address">
-      ĐỊA CHỈ: 119A ĐƯỜNG D1, KHU PHỐ ĐÔNG AN, PHƯỜNG TÂN ĐÔNG HIỆP,<br>
-      THÀNH PHỐ HỒ CHÍ MINH, VIỆT NAM
-    </div>
-  </div>
-
-  <div id="datetime">Đang tải ngày giờ...</div>
-
-  <div class="main-content">
-    <div class="table-container">
-      <table class="table table-bordered table-dark text-center">
-        <thead>
-          <tr>
-            <th>Loại Vàng</th>
-            <th>Giá Mua (VNĐ/CHỈ)</th>
-            <th>Giá Bán (VNĐ/CHỈ)</th>
-          </tr>
-        </thead>
-        <tbody id="gold-prices"></tbody>
-      </table>
-    </div>
-
-    <div class="chart-container">
-      <img id="kitcoChart" alt="Biểu đồ giá vàng thế giới">
-    </div>
-  </div>
-
-  <footer>&copy; 2025 DNTN KD Tiệm Vàng Minh Sang</footer>
-
-  <div class="fixed-footer">
-    Bảng giá chỉ áp dụng cho vàng của chúng tôi. Giá chưa bao gồm VAT
-  </div>
-
-  <!-- JS giữ nguyên -->
-</body>
-</html>
+    .table-container,
+    .chart-container {
+      background-color: rgba(0,
