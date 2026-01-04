@@ -76,7 +76,7 @@
     }
     .table-container {
       flex: 1 1 60%;
-      background-color: rgba(255, 255, 255, 0.05);
+      background-color: rgba(90, 15, 27, 0.85);
       border-radius: 12px;
       padding: 20px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.4);
@@ -85,6 +85,9 @@
       justify-content: center;
       min-height: 550px;
     }
+.table {
+  background-color: transparent !important;
+}
     .chart-container {
       flex: 1.5 1 35%;
       text-align: center;
@@ -104,8 +107,8 @@
       color: #fff;
     }
     .table thead {
-      background-color: #FFD700;
-      color: #000;
+background-color: #7a1c2b !important;
+  color: #d4af37 !important;
     }
     .table th,
     .table td {
@@ -121,9 +124,11 @@
       font-weight: bold;
       color: #fbc02d;
     }
+.table tbody tr {
+  background-color: rgba(60, 10, 20, 0.75) !important;
+}
     .table tbody tr:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-      transition: 0.3s;
+      background-color: rgba(120, 30, 45, 0.85) !important;      transition: 0.3s;
     }
     img {
       width: 100%;
@@ -179,6 +184,13 @@
       z-index: 9999;
       box-shadow: 0 -2px 8px rgba(0,0,0,0.3);
     }
+/* CHỮ VÀNG KIM CHO THÔNG TIN */
+.subtitle,
+.subtitle .tax-code,
+.subtitle .address,
+#datetime {
+  color: #d4af37 !important;
+}
   </style>
 </head>
 <body>
@@ -217,7 +229,7 @@
 
   <!-- Dòng thông báo cố định dưới cùng -->
   <div class="fixed-footer">
-    Bảng giá chỉ áp dụng cho vàng của chúng tôi. Giá chưa bao gồm VAT
+    Bảng giá chỉ áp dụng cho vàng của chúng tôi.
   </div>
 
   <script>
