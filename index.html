@@ -16,7 +16,6 @@
       position: relative;
       overflow-x: hidden;
     }
-
     body::before {
       content: "";
       position: fixed;
@@ -24,59 +23,47 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(
-        120deg,
-        rgba(212, 175, 55, 0.12),
-        rgba(255, 255, 255, 0.04),
-        rgba(212, 175, 55, 0.12)
-      );
+      background: linear-gradient(120deg, rgba(255, 215, 0, 0.1), rgba(255, 255, 255, 0.05), rgba(255, 215, 0, 0.1));
       background-size: 200% 200%;
       animation: shimmer 10s infinite linear;
       pointer-events: none;
       z-index: -1;
     }
-
     @keyframes shimmer {
       0% { background-position: 0% 0%; }
       50% { background-position: 100% 100%; }
       100% { background-position: 0% 0%; }
     }
-
     h1 {
       text-align: center;
       margin-top: 20px;
-      color: #d4af37;
+      color: #FFD700;
       font-family: 'Playfair Display', serif;
       font-size: 2.8em;
       text-shadow: 2px 2px 5px rgba(0,0,0,0.6);
     }
-
     .subtitle {
       text-align: center;
-      color: #e6c96f;
+      color: #ddd;
       font-size: 1.05em;
       margin-top: 10px;
       line-height: 1.6;
     }
-
     .subtitle .tax-code {
       font-weight: 500;
-      color: #f0d98a;
+      color: #e0e0e0;
     }
-
     .subtitle .address {
-      color: #e0c46a;
+      color: #cccccc;
       font-style: italic;
       margin-top: 4px;
     }
-
     #datetime {
       text-align: center;
       font-size: 1.8em;
       margin-top: 10px;
-      color: #f1d77a;
+      color: #90caf9;
     }
-
     .main-content {
       display: flex;
       flex-direction: row;
@@ -87,49 +74,232 @@
       box-sizing: border-box;
       flex-wrap: wrap;
     }
-
-    .table-container,
-    .chart-container {
-      background-color: rgba(255, 255, 255, 0.06);
+    .table-container {
+      flex: 1 1 60%;
+      background-color: rgba(255, 255, 255, 0.05);
       border-radius: 12px;
+      padding: 20px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 550px;
     }
-
+    .chart-container {
+      flex: 1.5 1 35%;
+      text-align: center;
+      background-color: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 15px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 550px;
+    }
     table {
       font-size: 1.5em;
       width: 100%;
       border-collapse: collapse;
-      color: #d4af37;
+      color: #fff;
     }
-
     .table thead {
-      background-color: #d4af37;
-      color: #5b0f1b;
+      background-color: #FFD700;
+      color: #000;
     }
-
+    .table th,
+    .table td {
+      text-align: center;
+      vertical-align: middle;
+      padding: 20px;
+      border: 1px solid #555;
+      height: 100px;
+    }
     .table td:nth-child(2),
     .table td:nth-child(3) {
-      color: #f5d77b;
+      font-size: 2.8em;
+      font-weight: bold;
+      color: #fbc02d;
     }
-
+    .table tbody tr:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      transition: 0.3s;
+    }
     img {
-      border: 2px solid #d4af37;
-      box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+      width: 100%;
+      height: 200%;
+      max-height: 200%;
+      margin-top: 10px;
+      border-radius: 10px;
+      border: 2px solid #FFD700;
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
     }
-
+    a {
+      color: #90caf9;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+      color: #ffffff;
+    }
     footer {
-      color: #e6c96f;
+      margin-top: 5px;
+      text-align: center;
+      color: #bbb;
+      font-size: 0.9em;
+    }
+    .logo-top-left {
+      position: fixed;
+      top: 10px;
+      left: 20px;
+      z-index: 1000;
+    }
+    .logo-top-left img {
+      height: 150px;
+      width: auto;
+      background-color: transparent;
+      background: none !important;
+      box-shadow: none !important;
+      border: none !important;
+      filter: none !important;
+      padding: 0px;
     }
 
+    /* Dòng chữ cố định dưới cùng */
     .fixed-footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
       background: rgba(60, 10, 20, 0.9);
       color: #d4af37;
+      text-align: center;
+      padding: 12px 0;
+      font-size: 2em;
+      z-index: 9999;
+      box-shadow: 0 -2px 8px rgba(0,0,0,0.3);
     }
   </style>
 </head>
-
 <body>
-  <!-- PHẦN HTML + JS GIỮ NGUYÊN 100% -->
-  <!-- (không chỉnh gì) -->
+  <div class="logo-top-left">
+    <a href="/"><img src="https://i.imgur.com/bAZ9qcX.png" alt="Logo Tiệm Vàng Minh Sang"></a>
+  </div>
+  <h1>DNTN KD Tiệm Vàng MINH SANG</h1>
+  <div class="subtitle">
+    <div class="tax-code">MÃ SỐ THUẾ: <strong>3702786679</strong></div>
+    <div class="address">ĐỊA CHỈ: 119A ĐƯỜNG D1, KHU PHỐ ĐÔNG AN, PHƯỜNG TÂN ĐÔNG HIỆP,<br>THÀNH PHỐ HỒ CHÍ MINH, VIỆT NAM</div>
+  </div>
+  <div id="datetime">Đang tải ngày giờ...</div>
+
+  <div class="main-content">
+    <div class="table-container">
+      <table class="table table-bordered table-dark text-center">
+        <thead>
+          <tr>
+            <th>Loại Vàng</th>
+            <th>Giá Mua (VNĐ/CHỈ)</th>
+            <th>Giá Bán (VNĐ/CHỈ)</th>
+          </tr>
+        </thead>
+        <tbody id="gold-prices">
+          <!-- Dữ liệu bảng giá sẽ được chèn vào đây -->
+        </tbody>
+      </table>
+    </div>
+
+    <div class="chart-container">
+      <img id="kitcoChart" alt="Biểu đồ giá vàng thế giới">
+    </div>
+  </div>
+
+  <footer>&copy; 2025 DNTN KD Tiệm Vàng Minh Sang</footer>
+
+  <!-- Dòng thông báo cố định dưới cùng -->
+  <div class="fixed-footer">
+    Bảng giá chỉ áp dụng cho vàng của chúng tôi. Giá chưa bao gồm VAT
+  </div>
+
+  <script>
+    function updateDateTime() {
+      const now = new Date();
+      const weekday = now.toLocaleDateString('vi-VN', { weekday: 'long' });
+      const dateString = now.toLocaleDateString('vi-VN', { day: 'numeric', month: 'long', year: 'numeric' });
+      const timeString = now.toLocaleTimeString('vi-VN');
+      document.getElementById("datetime").textContent = `${timeString} - ${weekday}, ${dateString}`;
+    }
+    updateDateTime();
+    setInterval(updateDateTime, 1000);
+
+    function updateKitcoChart() {
+      const img = document.getElementById('kitcoChart');
+      const timestamp = new Date().getTime();
+      img.src = `https://proxy.duckduckgo.com/iu/?u=https://www.kitco.com/chart-images/images/live/gold.gif&t=${timestamp}`;
+    }
+    updateKitcoChart();
+    setInterval(updateKitcoChart, 300000);
+
+    // Hàm parser CSV an toàn
+    function parseCSVLine(line) {
+      const values = [];
+      let current = '';
+      let insideQuotes = false;
+
+      for (let i = 0; i < line.length; i++) {
+        const char = line[i];
+
+        if (char === '"' && line[i + 1] === '"') {
+          current += '"';
+          i++;
+        } else if (char === '"') {
+          insideQuotes = !insideQuotes;
+        } else if (char === ',' && !insideQuotes) {
+          values.push(current.trim());
+          current = '';
+        } else {
+          current += char;
+        }
+      }
+      values.push(current.trim());
+      return values;
+    }
+
+    function updateGoldPrices() {
+      const url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRoDmMh9geQzip7IJv4Qrj246sWbb--9Sza85EfzDBVaqYzEtwdAtypf8TYqa7ZXQje9r_ceKotiG3O/pub?output=csv";
+      fetch(url)
+        .then(response => response.text())
+        .then(data => {
+          const rows = data.split("\n").slice(1);
+          const tableBody = document.getElementById("gold-prices");
+          tableBody.innerHTML = "";
+          rows.forEach(row => {
+            const columns = parseCSVLine(row);
+            if (columns.length >= 3) {
+              const tr = document.createElement("tr");
+              tr.innerHTML = `
+                <td>${columns[0]}</td>
+                <td>${columns[1]}</td>
+                <td>${columns[2]}</td>
+              `;
+              tableBody.appendChild(tr);
+            }
+          });
+        })
+        .catch(error => {
+          console.error("Có lỗi xảy ra khi tải dữ liệu bảng giá:", error);
+        });
+    }
+
+    updateGoldPrices();
+    setInterval(updateGoldPrices, 300000);
+
+    // Reload trang sau 5 phút
+    setTimeout(function() {
+      location.reload();
+    }, 300000);
+  </script>
 </body>
 </html>
+
+
+
