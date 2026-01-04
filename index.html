@@ -8,6 +8,49 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap" rel="stylesheet" />
 <style>
+/* HÀNG LOGO + THÔNG TIN NGANG */
+.header-row {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin: 10px 20px 5px 20px;
+}
+
+/* LOGO GIỮ GÓC TRÁI */
+.logo-top-left {
+  margin: 0;
+}
+
+.logo-top-left img {
+  height: 140px;
+  width: auto;
+}
+
+/* KHỐI THÔNG TIN BÊN PHẢI LOGO */
+.header-info {
+  text-align: left;
+}
+
+/* MÃ SỐ THUẾ TO, RÕ */
+.header-info .tax-code {
+  font-size: 2.2em;
+  font-weight: 700;
+  color: #d4af37;
+}
+
+/* ĐỊA CHỈ VIẾT LIỀN */
+.header-info .address {
+  font-size: 1.2em;
+  line-height: 1.3;
+  color: #d4af37;
+}
+
+/* THỜI GIAN CÙNG HÀNG – TO */
+#datetime {
+  font-size: 3em;
+  margin-top: 4px;
+  color: #d4af37;
+}
 subtitle .tax-code {
 font-size: 2.2em;
 font-weight: 700;
@@ -232,14 +275,19 @@ color: #d4af37 !important;
 </head>
 <body>
 <h1>DOANH NGHIỆP TƯ NHÂN KINH DOANH TIỆM VÀNG MINH SANG</h1>
-<div class="logo-top-left">
-  <a href="/"><img src="https://i.imgur.com/bAZ9qcX.png" alt="Logo Tiệm Vàng Minh Sang"></a>
+<div class="header-row">
+  <div class="logo-top-left">
+    <a href="/"><img src="https://i.imgur.com/bAZ9qcX.png" alt="Logo Tiệm Vàng Minh Sang"></a>
+  </div>
+
+  <div class="header-info">
+    <div class="tax-code">MÃ SỐ THUẾ: <strong>3702786679</strong></div>
+    <div class="address">
+      ĐỊA CHỈ: 119A ĐƯỜNG D1, KHU PHỐ ĐÔNG AN, PHƯỜNG TÂN ĐÔNG HIỆP, THÀNH PHỐ HỒ CHÍ MINH, VIỆT NAM
+    </div>
+    <div id="datetime">Đang tải ngày giờ...</div>
+  </div>
 </div>
-<div class="subtitle">
-<div class="tax-code">MÃ SỐ THUẾ: <strong>3702786679</strong></div>
-<div class="address">ĐỊA CHỈ: 119A ĐƯỜNG D1, KHU PHỐ ĐÔNG AN, PHƯỜNG TÂN ĐÔNG HIỆP, THÀNH PHỐ HỒ CHÍ MINH, VIỆT NAM</div>
-</div>
-<div id="datetime">Đang tải ngày giờ...</div>
 
 <div class="main-content">
 <div class="table-container">
